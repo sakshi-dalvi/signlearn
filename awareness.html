@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Awareness — SignLearn</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── HERO — dark gradient with color pop ── */
+    .aw-hero {
+      padding: calc(var(--nav-h) + 5rem) var(--pp) 5rem;
+      background: linear-gradient(135deg, #1e1a16 0%, #2d2240 50%, #0d2340 100%);
+      position: relative; overflow: hidden;
+    }
+    /* Colorful blobs light up the dark hero */
+    .aw-hero .blob-coral    { width:380px; height:380px; top:-15%; right:5%; }
+    .aw-hero .blob-lavender { width:280px; height:280px; bottom:0;  right:35%; }
+    .aw-hero .blob-sky      { width:200px; height:200px; bottom:5%; left:10%; }
+    .aw-hero .section-label { color: var(--coral-light); background: rgba(255,107,107,0.18); border-color: rgba(255,107,107,0.3); }
+    .aw-hero h1 { color: #fff; }
+    .aw-hero p  { color: rgba(255,255,255,0.7); }
+
+    /* ── STATS GRID ── */
+    .stats-hl-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem;
+      margin-bottom: 5rem;
+    }
+    .shl {
+      border-radius: var(--radius); padding: 2rem 1.5rem;
+      text-align: center; border: 1.5px solid transparent;
+    }
+    /* Four colored stat cards */
+    .shl.c1 { background: var(--coral-pale);    border-color: var(--coral-light); }
+    .shl.c2 { background: var(--sky-pale);      border-color: var(--sky-light); }
+    .shl.c3 { background: var(--mint-pale);     border-color: var(--mint-light); }
+    .shl.c4 { background: var(--lavender-pale); border-color: var(--lavender-light); }
+
+    .shl-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; font-weight: 700; display: block; margin-bottom: 0.35rem;
+    }
+    .shl.c1 .shl-num { color: var(--coral); }
+    .shl.c2 .shl-num { color: #1a6fa8; }
+    .shl.c3 .shl-num { color: var(--mint); }
+    .shl.c4 .shl-num { color: var(--lavender); }
+    .shl-lbl { font-size: 0.85rem; color: var(--text-mid); line-height: 1.4; }
+
+    /* ── QUOTE BLOCK ── */
+    .quote-block {
+      border-radius: var(--radius-lg);
+      padding: 4rem;
+      text-align: center; margin: 4rem 0;
+      /* Multi-color gradient quote area */
+      background: linear-gradient(135deg, var(--coral-pale), var(--lavender-pale), var(--sky-pale));
+      border: 1.5px solid var(--lavender-light);
+    }
+    .quote-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      font-style: italic; color: var(--text-dark); line-height: 1.55;
+      margin-bottom: 1rem;
+    }
+    .quote-attr { font-size: 0.88rem; color: var(--text-light); font-weight: 700; }
+
+    /* ── BARRIER CARDS ── */
+    /* Alternating color accents on each barrier */
+    .barrier-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+      gap: 1.2rem; margin-top: 2rem;
+    }
+    .barrier-card {
+      background: var(--bg-card); border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 1.75rem;
+      box-shadow: var(--shadow-xs); transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .barrier-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    /* Cycle colors for barrier card left border */
+    .barrier-card:nth-child(1) { border-left: 4px solid var(--coral); }
+    .barrier-card:nth-child(2) { border-left: 4px solid var(--sky); }
+    .barrier-card:nth-child(3) { border-left: 4px solid var(--mint); }
+    .barrier-card:nth-child(4) { border-left: 4px solid var(--lavender); }
+    .barrier-card:nth-child(5) { border-left: 4px solid var(--sun); }
+    .barrier-card:nth-child(6) { border-left: 4px solid var(--coral); }
+    .barrier-emoji { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
+
+    /* ── ACTION CARDS ── */
+    .action-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+      gap: 1.2rem; margin-top: 2rem;
+    }
+    .action-card {
+      border-radius: var(--radius); padding: 2rem 1.5rem;
+      text-align: center; border: 1.5px solid transparent;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .action-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .action-card.c1 { background: var(--coral-pale);    border-color: var(--coral-light); }
+    .action-card.c2 { background: var(--sky-pale);      border-color: var(--sky-light); }
+    .action-card.c3 { background: var(--mint-pale);     border-color: var(--mint-light); }
+    .action-card.c4 { background: var(--lavender-pale); border-color: var(--lavender-light); }
+    .action-icon { font-size: 2.5rem; display: block; margin-bottom: 0.85rem; }
+
+    /* ── PLEDGE BANNER ── */
+    .pledge-banner {
+      border-radius: var(--radius-lg); padding: 5rem 4rem;
+      text-align: center; margin-bottom: 2rem;
+      /* Full rainbow gradient CTA */
+      background: linear-gradient(135deg, var(--coral) 0%, var(--lavender) 50%, var(--sky) 100%);
+      position: relative; overflow: hidden;
+    }
+    .pledge-banner h2 { color: #fff; margin-bottom: 1rem; }
+    .pledge-banner p  { color: rgba(255,255,255,0.82); margin-bottom: 2.5rem; font-size: 1.05rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .pledge-banner .btn-secondary { color: #fff; border-color: rgba(255,255,255,0.5); }
+    .pledge-banner .btn-secondary:hover { background: rgba(255,255,255,0.15); color: #fff; border-color: #fff; }
+
+    @media (max-width: 900px) {
+      .stats-hl-grid { grid-template-columns: 1fr 1fr; }
+      .quote-block   { padding: 2.5rem 1.5rem; }
+      .pledge-banner { padding: 3rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Sign<span>Learn</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="practice.html">Practice</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="reallife.html">Real Life</a></li>
+        <li><a href="awareness.html">Awareness</a></li>
+        <li><a href="translator.html">Translator</a></li>
+</ul>
+  <div class="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="aw-hero">
+  <div class="blob blob-coral"   style="position:absolute;border-radius:50%;pointer-events:none;filter:blur(72px);opacity:0.28;width:380px;height:380px;top:-15%;right:5%;background:var(--coral);"></div>
+  <div class="blob blob-lavender" style="position:absolute;border-radius:50%;pointer-events:none;filter:blur(72px);opacity:0.25;width:280px;height:280px;bottom:0;right:35%;background:var(--lavender);"></div>
+  <div class="blob blob-sky"     style="position:absolute;border-radius:50%;pointer-events:none;filter:blur(72px);opacity:0.2;width:200px;height:200px;bottom:5%;left:10%;background:var(--sky);"></div>
+
+  <div style="position:relative; z-index:1; max-width:680px;">
+    <span class="section-label">Awareness & Inclusion</span>
+    <h1>Understanding the <em style="color:var(--coral-light);">deaf community</em></h1>
+    <p style="font-size:1.08rem; max-width:540px; margin-top:0.85rem;">Learn about the barriers faced by deaf and hard-of-hearing individuals — and why accessible communication matters for everyone.</p>
+  </div>
+</div>
+
+<section>
+
+  
+  <div class="stats-hl-grid fade-in">
+    <div class="shl c1"><span class="shl-num">70M+</span><div class="shl-lbl">People with significant hearing loss in the US</div></div>
+    <div class="shl c2"><span class="shl-num">1 in 8</span><div class="shl-lbl">Americans have hearing loss in both ears</div></div>
+    <div class="shl c3"><span class="shl-num">466M</span><div class="shl-lbl">People globally with disabling hearing loss</div></div>
+    <div class="shl c4"><span class="shl-num">+100</span><div class="shl-lbl">Distinct sign languages exist worldwide</div></div>
+  </div>
+
+  
+  <div style="margin-bottom:5rem;" class="fade-in">
+    <span class="section-label">Understanding Sign Language</span>
+    <h2 style="margin:0.3rem 0 0.85rem;">What is Sign Language?</h2>
+    <p style="margin-bottom:1rem;">Sign language is a natural, fully formed human language that uses handshapes, movement, facial expressions, and body posture to convey meaning. It is not a simplified or "lesser" version of spoken language — it has its own grammar, syntax, and rich vocabulary.</p>
+    <p style="margin-bottom:1rem;">There are many different sign languages used around the world, each belonging to the deaf community of its region. These are complete, expressive languages — not gestures or mime.</p>
+    <p>A single sign can express what takes several spoken words to say. Sign language is poetic, nuanced, and capable of conveying humour, emotion, and complex ideas.</p>
+  </div>
+
+  
+  <div class="quote-block fade-in">
+    <div class="quote-text">"Deaf people are not disabled. They are a linguistic minority with a rich culture, history, and a fully expressive language of their own."</div>
+    <div class="quote-attr">— Deaf Community Advocacy</div>
+  </div>
+
+  
+  <div style="margin-bottom:5rem;" class="fade-in">
+    <span class="section-label lavender">Why It Matters</span>
+    <h2 style="margin:0.3rem 0 0.85rem;">Why Sign Language <em>Matters</em></h2>
+    <p style="margin-bottom:1rem;">Sign language is not a workaround — it is a primary language for millions. When it is absent from public life, deaf individuals are excluded from education, healthcare, employment, and civic participation.</p>
+    <p style="margin-bottom:2rem;">The right to communicate is a fundamental human right. Ensuring sign language is present in public spaces is a matter of justice, not charity.</p>
+
+    
+    <div class="card-grid-3">
+      <div class="card sky fade-in" style="text-align:center;">
+        <div class="feature-icon sky" style="margin:0 auto 1.1rem;">📚</div>
+        <h3>Language Development</h3>
+        <p>Children who learn sign language early develop stronger cognitive and emotional vocabulary.</p>
+      </div>
+      <div class="card mint fade-in" style="text-align:center;">
+        <div class="feature-icon mint" style="margin:0 auto 1.1rem;">🤝</div>
+        <h3>Social Belonging</h3>
+        <p>Being able to communicate fosters identity, confidence, and mental wellbeing.</p>
+      </div>
+      <div class="card lavender fade-in" style="text-align:center;">
+        <div class="feature-icon lavender" style="margin:0 auto 1.1rem;">⚖️</div>
+        <h3>Equal Rights</h3>
+        <p>Access to sign language interpreters in courts, hospitals, and offices is a legal and ethical imperative.</p>
+      </div>
+    </div>
+  </div>
+
+  
+  <div style="margin-bottom:5rem;" class="fade-in">
+    <span class="section-label">The Challenges</span>
+    <h2 style="margin:0.3rem 0 0.85rem;">Barriers Faced by Deaf People</h2>
+    <p>Despite progress, deaf individuals face significant daily challenges. Understanding these barriers is the first step to dismantling them.</p>
+    <div class="barrier-grid">
+      
+      <div class="barrier-card fade-in">
+        <span class="barrier-emoji">🏫</span>
+        <h3>Education Gaps</h3>
+        <p>Many schools lack trained sign language teachers, forcing deaf students into unsupported mainstream classrooms.</p>
+      </div>
+      <div class="barrier-card fade-in">
+        <span class="barrier-emoji">💼</span>
+        <h3>Employment Barriers</h3>
+        <p>Communication-heavy workplaces often exclude deaf candidates, limiting career options and economic independence.</p>
+      </div>
+      <div class="barrier-card fade-in">
+        <span class="barrier-emoji">🏥</span>
+        <h3>Healthcare Access</h3>
+        <p>Without interpreters, medical consultations become guesswork. Misdiagnosis is a serious and real risk.</p>
+      </div>
+      <div class="barrier-card fade-in">
+        <span class="barrier-emoji">📺</span>
+        <h3>Media & Information</h3>
+        <p>Most broadcasts, public announcements, and news services lack sign language interpretation or captions.</p>
+      </div>
+      <div class="barrier-card fade-in">
+        <span class="barrier-emoji">🚔</span>
+        <h3>Legal System</h3>
+        <p>Navigating courts and government offices without a sign language interpreter is a serious access issue.</p>
+      </div>
+      <div class="barrier-card fade-in">
+        <span class="barrier-emoji">💬</span>
+        <h3>Social Isolation</h3>
+        <p>When people around you don't know sign language, even simple daily interactions become exhausting.</p>
+      </div>
+    </div>
+  </div>
+
+  
+  <div style="margin-bottom:5rem;" class="fade-in">
+    <span class="section-label mint">Take Action</span>
+    <h2 style="margin:0.3rem 0 0.85rem;">How Learning Sign Language Helps</h2>
+    <p>You don't need to become a professional interpreter. Every hearing person who learns basic signs reduces the isolation of the deaf community.</p>
+    <div class="action-grid">
+      <div class="action-card c1 fade-in">
+        <span class="action-icon">📖</span>
+        <h3>Learn the Basics</h3>
+        <p>Start with greetings, common words, and the alphabet. Even small knowledge makes a big impact.</p>
+      </div>
+      <div class="action-card c2 fade-in">
+        <span class="action-icon">📢</span>
+        <h3>Spread Awareness</h3>
+        <p>Share information about sign language and deaf culture with your family and friends.</p>
+      </div>
+      <div class="action-card c3 fade-in">
+        <span class="action-icon">🏢</span>
+        <h3>Advocate at Work</h3>
+        <p>Push for inclusive hiring and sign language training at your workplace.</p>
+      </div>
+      <div class="action-card c4 fade-in">
+        <span class="action-icon">🎓</span>
+        <h3>Support Education</h3>
+        <p>Support organisations that train sign language teachers and resource deaf schools.</p>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="pledge-banner fade-in">
+    <h2>Join the movement toward inclusion</h2>
+    <p>Start learning sign language today. Every sign you master is an act of inclusion — a signal that deaf people belong fully in our shared world.</p>
+    <div class="btn-group" style="justify-content:center;">
+      <a href="learn.html" class="btn-primary" style="background:#fff; color:var(--coral); box-shadow:0 4px 20px rgba(0,0,0,0.15);">Start Learning →</a>
+      <a href="practice.html" class="btn-secondary">Practice Signs</a>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">Sign<span style="background:linear-gradient(135deg,var(--coral-light),var(--lavender-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Learn</span></a>
+      <p>A free educational platform for sign language learning and deaf community awareness.</p>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="practice.html">Practice</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="reallife.html">Real Life</a></li>
+        <li><a href="awareness.html">Awareness</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="learn.html">Alphabets</a></li>
+        <li><a href="learn.html">Daily Signs</a></li>
+        <li><a href="quiz.html">Take a Quiz</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-awareness">"Language is the road map of a culture. It tells you where its people come from and where they are going."</div>
+  <div class="footer-bottom">
+    <span>© 2025 SignLearn. Free for educational use.</span>
+    <span>Made with care for the deaf community 🤟</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

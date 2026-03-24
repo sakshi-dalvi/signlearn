@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SignLearn — Learn Sign Language</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── HERO ── */
+    .hero { position:relative; overflow:hidden;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: calc(var(--nav-h) + 5rem) var(--pp) 6rem;
+      position: relative; overflow: hidden;
+      /* Soft multi-color gradient base */
+      background: linear-gradient(145deg, #fff9f5 0%, #f5f0ff 40%, #eef7ff 70%, #edfaf7 100%);
+    }
+
+    /* Floating colored blobs behind hero content */
+    .hero .blob-coral    { width: 480px; height: 480px; top: -10%; right: 5%; }
+    .hero .blob-lavender { width: 320px; height: 320px; bottom: 5%; left: -5%; }
+    .hero .blob-mint     { width: 250px; height: 250px; bottom: 15%; right: 25%; }
+
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+
+    /* Small colored badge above the main heading */
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: linear-gradient(135deg, var(--coral-pale), var(--lavender-pale));
+      border: 1.5px solid var(--coral-light);
+      color: var(--coral-dark); font-size: 0.8rem; font-weight: 700;
+      padding: 0.38rem 1rem; border-radius: 100px;
+      margin-bottom: 1.75rem; letter-spacing: 0.07em; text-transform: uppercase;
+    }
+
+    .hero h1 { margin-bottom: 1.4rem; }
+    .hero > .hero-content > p { font-size: 1.12rem; max-width: 500px; margin-bottom: 2.4rem; }
+
+    /* Stats row below CTA buttons */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem;
+      margin-top: 4rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.75);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem 1.5rem;
+      backdrop-filter: blur(10px);
+    }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; font-weight: 700; line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    /* Each stat gets its own color */
+    .stat-card:nth-child(1) .stat-number { color: var(--coral); }
+    .stat-card:nth-child(2) .stat-number { color: var(--sky); }
+    .stat-card:nth-child(3) .stat-number { color: var(--mint); }
+    .stat-label { font-size: 0.88rem; color: var(--text-light); }
+
+    /* ── FEATURES SECTION ── */
+    /* Alternate soft background to visually separate from hero */
+    .features-section { background: var(--bg-soft); }
+
+    /* Wavy border between sections */
+    .wave-divider {
+      width: 100%; overflow: hidden; line-height: 0;
+      background: var(--bg-base);
+    }
+    .wave-divider svg { display: block; }
+
+    /* ── IMPORTANCE SPLIT LAYOUT ── */
+    .importance-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .importance-visual {
+      border-radius: var(--radius-lg);
+      padding: 3.5rem 2.5rem;
+      text-align: center;
+      /* Colorful gradient panel */
+      background: linear-gradient(135deg, var(--lavender-pale) 0%, var(--sky-pale) 50%, var(--mint-pale) 100%);
+      border: 1.5px solid var(--lavender-light);
+      position: relative; overflow: hidden;
+    }
+    .importance-visual .big-emoji { font-size: 5rem; display: block; margin-bottom: 1.25rem; }
+
+    /* ── ACCESSIBILITY CARDS — colored backgrounds ── */
+    .access-card {
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border: 1.5px solid transparent;
+    }
+    .access-card.c1 { background: var(--coral-pale);    border-color: var(--coral-light); }
+    .access-card.c2 { background: var(--sky-pale);      border-color: var(--sky-light); }
+    .access-card.c3 { background: var(--mint-pale);     border-color: var(--mint-light); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      margin: 0 var(--pp) 6rem;
+      border-radius: var(--radius-lg);
+      padding: 5rem 4rem;
+      text-align: center;
+      /* Multi-color gradient banner */
+      background: linear-gradient(135deg, #ff6b6b 0%, #a78bfa 50%, #4db8ff 100%);
+      position: relative; overflow: hidden;
+    }
+    .cta-banner h2 { color: #fff; margin-bottom: 1rem; }
+    .cta-banner p  { color: rgba(255,255,255,0.82); margin-bottom: 2.5rem; font-size: 1.05rem; }
+    /* White outline secondary button on the colorful banner */
+    .cta-banner .btn-secondary { color: #fff; border-color: rgba(255,255,255,0.55); }
+    .cta-banner .btn-secondary:hover { background: rgba(255,255,255,0.15); color: #fff; border-color: #fff; }
+
+    @media (max-width: 768px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .importance-grid { grid-template-columns: 1fr; }
+      .cta-banner { padding: 3rem 1.5rem; margin: 0 1.5rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Sign<span>Learn</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="practice.html">Practice</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="reallife.html">Real Life</a></li>
+        <li><a href="awareness.html">Awareness</a></li>
+        <li><a href="translator.html">Translator</a></li>
+</ul>
+  <div class="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></div>
+</nav>
+
+<section class="hero">
+  
+  <div class="blob blob-coral"></div>
+  <div class="blob blob-lavender"></div>
+  <div class="blob blob-mint"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">🤝 Visual Language Learning</div>
+
+    <h1>Speak with your <em>hands</em>,<br>connect with your heart</h1>
+
+    <p>SignLearn is your calm, structured guide to sign language — from the first alphabet to real-life conversations. Learn at your own pace.</p>
+
+    <div class="btn-group">
+      <a href="learn.html" class="btn-primary">Start Learning →</a>
+      <a href="practice.html" class="btn-secondary">Practice Signs</a>
+    </div>
+
+    
+    <div class="stats-row">
+      <div class="stat-card fade-in">
+        <div class="stat-number">300+</div>
+        <div class="stat-label">Signs to explore</div>
+      </div>
+      <div class="stat-card fade-in">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Learning modules</div>
+      </div>
+      <div class="stat-card fade-in">
+        <div class="stat-number">Free</div>
+        <div class="stat-label">Always and forever</div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="smiley-wrap">
+    <div class="smiley-ball">
+      <div class="orbit">
+        <div class="orbit-item">🤟</div>
+        <div class="orbit-item">✌️</div>
+        <div class="orbit-item">👋</div>
+        <div class="orbit-item">🖐️</div>
+      </div>
+      <div class="smiley-face">😊</div>
+    </div>
+  </div>
+</section>
+
+<section class="features-section">
+  <div class="section-header fade-in">
+    <span class="section-label">What you'll learn</span>
+    <h2>Everything you need to communicate</h2>
+    <p>A complete learning path — from recognising the alphabet to holding real conversations.</p>
+  </div>
+
+  <div class="card-grid">
+    
+    <div class="card coral fade-in">
+      <div class="feature-icon coral">🔤</div>
+      <h3>Alphabet A–Z</h3>
+      <p>Learn all 26 hand signs with clear visual references and placeholders until your images are ready.</p>
+      <br><a href="learn.html" class="btn-secondary" style="font-size:0.83rem; padding:0.55rem 1.1rem;">Explore →</a>
+    </div>
+
+    <div class="card sky fade-in">
+      <div class="feature-icon sky">🔢</div>
+      <h3>Numbers 1–10</h3>
+      <p>Master number signs to express quantities, dates, and counting fluently.</p>
+      <br><a href="learn.html" class="btn-secondary" style="font-size:0.83rem; padding:0.55rem 1.1rem;">Explore →</a>
+    </div>
+
+    <div class="card mint fade-in">
+      <div class="feature-icon mint">💬</div>
+      <h3>Daily Conversations</h3>
+      <p>30 essential everyday signs — greetings, emotions, and directions — for practical communication.</p>
+      <br><a href="learn.html" class="btn-secondary" style="font-size:0.83rem; padding:0.55rem 1.1rem;">Explore →</a>
+    </div>
+
+    <div class="card lavender fade-in">
+      <div class="feature-icon lavender">📷</div>
+      <h3>Webcam Practice</h3>
+      <p>Use your camera as a mirror to practice signs in real time alongside reference images.</p>
+      <br><a href="practice.html" class="btn-secondary" style="font-size:0.83rem; padding:0.55rem 1.1rem;">Practice →</a>
+    </div>
+
+    <div class="card sun fade-in">
+      <div class="feature-icon sun">🧠</div>
+      <h3>Interactive Quiz</h3>
+      <p>Test what you've learned with image-based questions and track your progress with a score.</p>
+      <br><a href="quiz.html" class="btn-secondary" style="font-size:0.83rem; padding:0.55rem 1.1rem;">Take Quiz →</a>
+    </div>
+
+    <div class="card coral fade-in">
+      <div class="feature-icon coral">🌍</div>
+      <h3>Real-Life Contexts</h3>
+      <p>See how sign language is used in hospitals, schools, restaurants, and emergencies.</p>
+      <br><a href="reallife.html" class="btn-secondary" style="font-size:0.83rem; padding:0.55rem 1.1rem;">Explore →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="importance-grid">
+    
+    <div class="fade-in">
+      <span class="section-label lavender">Why it matters</span>
+      <h2>Language is a <em>human right</em></h2>
+      <p style="margin-bottom:1rem;">Millions of people communicate primarily through sign language every day. Yet for most of the hearing world, it remains unfamiliar — creating daily barriers in education, healthcare, and public life.</p>
+      <p style="margin-bottom:1.75rem;">Sign language is a rich, complete visual language with its own grammar and structure. Learning even the basics changes how you engage with the world.</p>
+      <a href="awareness.html" class="btn-primary lavender" style="background:linear-gradient(135deg,var(--lavender),#7c5ce0); box-shadow:0 4px 20px rgba(167,139,250,0.4);">Learn about Awareness →</a>
+    </div>
+
+    
+    <div class="importance-visual fade-in">
+      <span class="big-emoji">🤟</span>
+      <h3>Every sign you learn<br>is a bridge you build</h3>
+      <p style="margin-top:0.85rem; font-size:0.95rem;">Sign language gives millions of people full access to communication, connection, and community.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="section-header centered fade-in">
+    <span class="section-label mint">Inclusion & Accessibility</span>
+    <h2>Designing a world for everyone</h2>
+    <p>Inclusive communication means recognising that every person deserves to participate fully in society.</p>
+  </div>
+
+  
+  <div class="card-grid-3">
+    <div class="access-card c1 fade-in">
+      <div style="font-size:2.5rem; margin-bottom:1rem;">🏫</div>
+      <h3>In Education</h3>
+      <p>Deaf students thrive when teachers and peers can communicate directly with them in sign language.</p>
+    </div>
+    <div class="access-card c2 fade-in">
+      <div style="font-size:2.5rem; margin-bottom:1rem;">🏥</div>
+      <h3>In Healthcare</h3>
+      <p>Clear communication in medical settings can be life-saving. Sign language bridges that critical gap.</p>
+    </div>
+    <div class="access-card c3 fade-in">
+      <div style="font-size:2.5rem; margin-bottom:1rem;">🤝</div>
+      <h3>In Community</h3>
+      <p>When more people learn sign language, deaf individuals gain full access to public and social life.</p>
+    </div>
+  </div>
+</section>
+
+<div class="cta-banner fade-in">
+  <h2>Begin your journey today</h2>
+  <p>Learning sign language takes time — but every single sign matters. Start with the alphabet and build from there.</p>
+  <div class="btn-group" style="justify-content:center;">
+    <a href="learn.html" class="btn-primary" style="background:#fff; color:var(--coral); box-shadow:0 4px 20px rgba(0,0,0,0.15);">Start Learning →</a>
+    <a href="quiz.html" class="btn-secondary">Take the Quiz</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">Sign<span style="background:linear-gradient(135deg,var(--coral-light),var(--lavender-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Learn</span></a>
+      <p>A free educational platform dedicated to teaching sign language and promoting inclusive communication.</p>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="practice.html">Practice</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="reallife.html">Real Life</a></li>
+        <li><a href="awareness.html">Awareness</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="learn.html">Alphabets</a></li>
+        <li><a href="learn.html">Numbers</a></li>
+        <li><a href="learn.html">Daily Signs</a></li>
+        <li><a href="quiz.html">Take a Quiz</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-awareness">
+    "Sign language is not a lesser form of communication — it is a complete, expressive, and beautiful language. Let's learn to listen with our eyes."
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 SignLearn. Free for educational use.</span>
+    <span>Made with care for the deaf community 🤟</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
