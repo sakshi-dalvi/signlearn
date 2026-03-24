@@ -134,7 +134,7 @@ function smartLoad(img, folder, slug, fallbackSVG, placeholder) {
       else { img.style.display='none'; if(placeholder) placeholder.style.display='flex'; }
       return;
     }
-    img.src = 'images/' + folder + '/' + slug + '.' + fmts[i++];
+    img.src = folder + '/' + slug + '.' + fmts[i++];
   }
   img.onerror = tryNext;
   img.onload = function() { img.style.display='block'; if(placeholder) placeholder.style.display='none'; };
